@@ -11,7 +11,7 @@ class Instancing {
 
     constructor(mesh: CompiledMesh) {
         this.mesh = mesh;
-        this.instances = new InstancedModel[0];
+        this.instances = [];
         this.array = new Float32Array(0);
     }
 
@@ -46,3 +46,5 @@ class Instancing {
     }
 
 }
+
+export { Instancing };

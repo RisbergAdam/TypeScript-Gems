@@ -15,10 +15,10 @@ out vec4 vColor;
 void main(void) {
     if (isInstance == 0) {
         gl_Position = ProjectionView * Model * vec4(position, 1.0);
-        vColor = ProjectionView * Model * vec4(normal, 1.0);
+        vColor = vec4(normal, 1.0) * inverse(Model);
     } else {
         gl_Position = ProjectionView * ModelInstance[gl_InstanceID] * vec4(position, 1.0);
-        vColor = ProjectionView * Model * vec4(normal, 1.0);
+        vColor = vec4(normal, 1.0) * inverse(ModelInstance[gl_InstanceID]);
     }
 }
 

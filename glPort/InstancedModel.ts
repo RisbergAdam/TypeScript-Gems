@@ -7,6 +7,8 @@ class InstancedModel {
     matrix: Matrix;
 
     constructor() {
+        this.position = [0,0,0];
+        this.rotation = [0,0,0];
         this.matrix = new Matrix();
     }
 
