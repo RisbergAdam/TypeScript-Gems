@@ -30,7 +30,6 @@ class Graphics {
 		let gl = this.gl;
     	gl.enable(gl.DEPTH_TEST);  
     	gl.clearDepth(500.0);
-		gl.disable(gl.DEPTH_TEST);
    	 	gl.clearColor(0.0, 0.0, 0.0, 1.0);
     	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 		gl.viewport(0, 0, this.width, this.height);

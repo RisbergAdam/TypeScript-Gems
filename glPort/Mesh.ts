@@ -17,29 +17,31 @@ class Vertex {
 
 class Mesh {
 
-	data: Vertex[];
+	triangles: [Vertex, Vertex, Vertex][];
 
-	constructor(data: Vertex[]) {
-		this.data = data;
+	constructor(triangles: [Vertex, Vertex, Vertex][]) {
+		this.triangles = triangles;
 	}
 
 	compile(gl: WebGLRenderingContext, against: Shader): CompiledMesh {
-		let posArray = new Float32Array(this.data.length * 3);
-		let normArray = new Float32Array(this.data.length * 3);
-		let colArray = new Float32Array(this.data.length * 3);
+		let posArray = new Float32Array(this.triangles.length * 3*3);
+		let normArray = new Float32Array(this.triangles.length * 3*3);
+		let colArray = new Float32Array(this.triangles.length * 3*3);
 
-		for (let i = 0;i < this.data.length;i++) {
-			posArray[i*3 + 0] = this.data[i].pos[0];
-			posArray[i*3 + 1] = this.data[i].pos[1];
-			posArray[i*3 + 2] = this.data[i].pos[2];
+		for (let i = 0;i < this.triangles.length;i++) {
+			for (let j = 0;j < 3;j++) {
+				posArray[i*3*3 + j*3 + 0] = this.triangles[i][j].pos[0];
+				posArray[i*3*3 + j*3 + 1] = this.triangles[i][j].pos[1];
+				posArray[i*3*3 + j*3 + 2] = this.triangles[i][j].pos[2];
 
-			normArray[i*3 + 0] = this.data[i].norm[0];
-			normArray[i*3 + 1] = this.data[i].norm[1];
-			normArray[i*3 + 2] = this.data[i].norm[2];
+				normArray[i*3*3 + j*3 + 0] = this.triangles[i][j].norm[0];
+				normArray[i*3*3 + j*3 + 1] = this.triangles[i][j].norm[1];
+				normArray[i*3*3 + j*3 + 2] = this.triangles[i][j].norm[2];
 
-			colArray[i*3 + 0] = this.data[i].color[0];
-			colArray[i*3 + 1] = this.data[i].color[1];
-			colArray[i*3 + 2] = this.data[i].color[2];
+				colArray[i*3*3 + j*3 + 0] = this.triangles[i][j].color[0];
+				colArray[i*3*3 + j*3 + 1] = this.triangles[i][j].color[1];
+				colArray[i*3*3 + j*3 + 2] = this.triangles[i][j].color[2];
+			}
 		}
 
 		let posBuffer:WebGLBuffer = gl.createBuffer();
@@ -70,7 +72,7 @@ class Mesh {
 		gl.enableVertexAttribArray(colShaderLocation);
 		gl.vertexAttribPointer(colShaderLocation, 3, gl.FLOAT, false, 0, 0);
 
-		return new CompiledMesh(posBuffer, posShaderLocation, normBuffer, normShaderLocation, colBuffer, colShaderLocation, this.data.length);
+		return new CompiledMesh(posBuffer, posShaderLocation, normBuffer, normShaderLocation, colBuffer, colShaderLocation, this.triangles.length * 3);
 	}
 
 }

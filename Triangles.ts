@@ -4,6 +4,7 @@ import { Model } from "./glPort/Model";
 import { Mesh, CompiledMesh, Vertex } from "./glPort/Mesh";
 import { source as vertexSource } from "./shaders/VertexShader";
 import { source as fragmentSource } from "./shaders/FragmentShader";
+import { build as buildSphere } from "./models/Sphere";
 
 let gl:WebGLRenderingContext;
 let graphics: Graphics;
@@ -19,18 +20,20 @@ function startGL() {
     
     graphics.init();
 
-     let triangleData = [new Vertex([0.0, -0.5, 0.0], [0.0, 0.0, 0.0], [1.0,0.0,0.0]),
-						 new Vertex([-0.5, 0.5, 0.0], [0.0, 0.0, 0.0], [0.0,1.0,0.0]),
-						 new Vertex([0.5, 0.5, 0.0], [0.0, 0.0, 0.0], [0.0,0.0,1.0])];
+     let triangleData: [Vertex, Vertex, Vertex][] = [
+         [new Vertex([0.0, -0.5, 0.0], [0.0, 0.0, 0.0], [1.0,0.0,0.0]),
+	      new Vertex([-0.5, 0.5, 0.0], [0.0, 0.0, 0.0], [0.0,1.0,0.0]),
+		  new Vertex([0.5, 0.5, 0.0], [0.0, 0.0, 0.0], [0.0,0.0,1.0])]];
 
-    let mesh = new Mesh(triangleData).compile(graphics.gl, graphics.shader);
-    model = new Model(mesh, [0, 0, 0], [0, 0, 0]);
-    model.getPosition()[2] = 5.0;
+    let mesh = buildSphere(graphics);
+    model = new Model(mesh, [0,0,0], [0,0,0]);
+    model.getPosition()[2] = 15.0;
 }
 
 function draw() {
     graphics.begin();
     
+    model.getRotation()[0] += 0.01;
     graphics.draw(model);
 
     graphics.end();
