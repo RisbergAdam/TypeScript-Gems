@@ -13,9 +13,9 @@ let model: Model;
 
 function startGL() {
     let canvas:HTMLCanvasElement = document.getElementById("glCanvas") as HTMLCanvasElement;
-    gl = canvas.getContext("webgl") as WebGLRenderingContext;
+    gl = canvas.getContext("webgl2") as WebGLRenderingContext;
 
-    shader = new Shader(gl, vertexSource, fragmentSource);
+    shader = new Shader(vertexSource, fragmentSource);
     graphics = new Graphics(gl, shader, canvas.width, canvas.height);
     
     graphics.init();
@@ -34,7 +34,7 @@ function draw() {
     graphics.begin();
     
     model.getRotation()[0] += 0.01;
-    graphics.draw(model);
+    model.draw(graphics);
 
     graphics.end();
 

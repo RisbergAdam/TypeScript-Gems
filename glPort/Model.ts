@@ -1,5 +1,6 @@
 import { CompiledMesh } from "./Mesh";
 import { Matrix } from "./Matrix";
+import { Graphics } from "./Graphics";
 
 class Model {
 
@@ -23,7 +24,14 @@ class Model {
         return this.rotation;
     }
 
-    getMatrix(): Matrix {
+    draw(graphics: Graphics) {
+        let isShaderLocation = graphics.shader.getUniformLocation("isInstance");
+        graphics.gl.uniform1i(isShaderLocation, 0);
+        this.getMatrix().upload(graphics.gl, "Model", graphics.shader);
+		this.mesh.draw(graphics.gl);
+    }
+
+    private getMatrix(): Matrix {
         let matrix = this.matrix;
         matrix.identity();
         matrix.translate(this.position[0], this.position[1], this.position[2]);

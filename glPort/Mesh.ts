@@ -54,7 +54,8 @@ class Mesh {
 
 		let posShaderLocation = against.getAttribLocation("position");
 		gl.enableVertexAttribArray(posShaderLocation);
-		gl.vertexAttribPointer(posShaderLocation, 3, gl.FLOAT, false, 0, 0);
+		gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+		//glExt.vertexAttribDivisorANGLE(posShaderLocation, 0);
 
 		// upload data for vertex positions
 		gl.bindBuffer(gl.ARRAY_BUFFER, normBuffer);
@@ -62,7 +63,8 @@ class Mesh {
 
 		let normShaderLocation = against.getAttribLocation("normal");
 		gl.enableVertexAttribArray(normShaderLocation);
-		gl.vertexAttribPointer(normShaderLocation, 3, gl.FLOAT, false, 0, 0);
+		gl.vertexAttribPointer(1, 3, gl.FLOAT, false, 0, 0);
+		//glExt.vertexAttribDivisorANGLE(normShaderLocation, 0);
 
 		// upload data for vertex colors
 		gl.bindBuffer(gl.ARRAY_BUFFER, colBuffer);
@@ -70,7 +72,8 @@ class Mesh {
 
 		let colShaderLocation = against.getAttribLocation("color");
 		gl.enableVertexAttribArray(colShaderLocation);
-		gl.vertexAttribPointer(colShaderLocation, 3, gl.FLOAT, false, 0, 0);
+		gl.vertexAttribPointer(2, 3, gl.FLOAT, false, 0, 0);
+		//glExt.vertexAttribDivisorANGLE(colShaderLocation, 0);
 
 		return new CompiledMesh(posBuffer, posShaderLocation, normBuffer, normShaderLocation, colBuffer, colShaderLocation, this.triangles.length * 3);
 	}
@@ -99,16 +102,27 @@ class CompiledMesh {
 		this.numVertices = numVertices;
 	}
 
-	draw(gl: WebGLRenderingContext) {
+	private bindBuffers(gl: WebGLRenderingContext) {
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.posBuffer);
-		gl.vertexAttribPointer(this.posShaderLocation, 3, gl.FLOAT, false, 0, 0);
+		gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.normBuffer);
-		gl.vertexAttribPointer(this.normShaderLocation, 3, gl.FLOAT, false, 0, 0);
+		gl.vertexAttribPointer(1, 3, gl.FLOAT, false, 0, 0);
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.colBuffer);
-		gl.vertexAttribPointer(this.colShaderLocation, 3, gl.FLOAT, false, 0, 0);
+		gl.vertexAttribPointer(2, 3, gl.FLOAT, false, 0, 0);
+	}
 
+	drawInstanced(gl: WebGLRenderingContext, count: number) {
+		this.bindBuffers(gl);
+		let gll: any = gl as any;
+		gll.drawArraysInstanced(gl.TRIANGLES, 0, this.numVertices, count);
+	}
+
+	draw(gl: WebGLRenderingContext) {
+		this.bindBuffers(gl);
+		let gll: any = gl as any;
+		//gll.drawArraysInstanced(gl.TRIANGLES, 0, this.numVertices, 1);
 		gl.drawArrays(gl.TRIANGLES, 0, this.numVertices);
 	}
 

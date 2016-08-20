@@ -1,11 +1,13 @@
-let source = `
+let source = `#version 300 es
 
 precision mediump float;
 
-varying vec4 vColor;
+in vec4 vColor;
+
+out vec4 fColor;
 
 void main(void) {
-    gl_FragColor = vColor;
+    fColor = vColor;
 }
 
 `

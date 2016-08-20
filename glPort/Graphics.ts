@@ -34,7 +34,7 @@ class Graphics {
     	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 		gl.viewport(0, 0, this.width, this.height);
 
-		this.shader.compile();
+		this.shader.compile(this.gl);
 		this.shader.use();
 	}
 
@@ -42,12 +42,7 @@ class Graphics {
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 		this.projectionView.upload(this.gl, "ProjectionView", this.shader);
 	}
-
-	draw(model: Model) {
-		model.getMatrix().upload(this.gl, "Model", this.shader);
-		model.mesh.draw(this.gl);
-	}
-
+	
 	end() {
 
 	}

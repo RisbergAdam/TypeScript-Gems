@@ -5,16 +5,15 @@ class Shader {
 	fragmentShader: string;
 	programId: WebGLProgram;
 
-	constructor(gl: WebGLRenderingContext, vertexShader: string, fragmentShader: string) {
-		this.gl = gl;
+	constructor(vertexShader: string, fragmentShader: string) {
 		this.vertexShader = vertexShader;
 		this.fragmentShader = fragmentShader;		
 	}
 
-	compile(): boolean {
+	compile(gl: WebGLRenderingContext): boolean {
 		console.log("shader.compile()");
 
-		let gl = this.gl;
+		this.gl = gl;
 
 		this.programId = gl.createProgram();
 

@@ -70,7 +70,6 @@ class Matrix {
 
     upload(gl: WebGLRenderingContext, shaderVariable: string, shader: Shader) {
         let shaderLocation = shader.getUniformLocation(shaderVariable);
-        console.log("shader location: " + shaderLocation as string);
         gl.uniformMatrix4fv(shaderLocation, false, this.array);
     }
 
