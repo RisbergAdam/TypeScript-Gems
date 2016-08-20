@@ -1,0 +1,10 @@
+body {
+	background-color: #000
+}
+
+#glCanvas {
+	display: block;
+	margin: auto;
+	top: 100px;
+	position: relative
+}
