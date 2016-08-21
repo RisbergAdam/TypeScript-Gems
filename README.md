@@ -1,1 +1,1 @@
-![alt tag](https://raw.githubusercontent.com/RisbergAdam/TypeScript-Gems/master/gems1.png?1)
+![alt tag](https://raw.githubusercontent.com/RisbergAdam/TypeScript-Gems/master/gems1.png)
