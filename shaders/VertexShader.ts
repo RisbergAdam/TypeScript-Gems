@@ -14,6 +14,7 @@ out vec4 vColor;
 out vec4 vNormal;
 out vec3 vPosition;
 out vec3 center;
+
 void main(void) {
     if (isInstance == 0) {
         gl_Position = ProjectionView * Model * vec4(position, 1.0);

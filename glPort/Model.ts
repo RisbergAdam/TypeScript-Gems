@@ -8,12 +8,14 @@ class Model {
     position: [number, number, number];
     rotation: [number, number, number];
 
+    color: [number, number, number] = [0, 0, 0];
+
     matrix: Matrix = new Matrix();
 
-    constructor(mesh: CompiledMesh, position: [number, number, number], rotation: [number, number, number]) {
+    constructor(mesh: CompiledMesh) {
         this.mesh = mesh;
-        this.position = position;
-        this.rotation = rotation;
+        this.position = [0,0,0];
+        this.rotation = [0,0,0];
     }
 
     getPosition(): [number, number, number] {
@@ -24,9 +26,17 @@ class Model {
         return this.rotation;
     }
 
+    getColor(): [number, number, number] {
+        return this.color;
+    }
+
     draw(graphics: Graphics) {
         let isShaderLocation = graphics.shader.getUniformLocation("isInstance");
         graphics.gl.uniform1i(isShaderLocation, 0);
+
+        let heatColorLocation = graphics.shader.getUniformLocation("heatColor");
+        graphics.gl.uniform3f(heatColorLocation, this.color[0], this.color[1], this.color[2]);
+
         this.getMatrix().upload(graphics.gl, "Model", graphics.shader);
 		this.mesh.draw(graphics.gl);
     }

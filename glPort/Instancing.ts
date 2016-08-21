@@ -8,6 +8,7 @@ class Instancing {
     mesh: CompiledMesh;
     instances: InstancedModel[];
     array: Float32Array;
+    color: [number, number, number] = [0, 0, 0];
 
     constructor(mesh: CompiledMesh) {
         this.mesh = mesh;
@@ -21,9 +22,16 @@ class Instancing {
         return instance;
     }
 
+    getColor(): [number, number, number] {
+        return this.color;
+    }
+
     draw(graphics: Graphics) {
         let isShaderLocation = graphics.shader.getUniformLocation("isInstance");
         graphics.gl.uniform1i(isShaderLocation, 1);
+
+        let heatColorLocation = graphics.shader.getUniformLocation("heatColor");
+        graphics.gl.uniform3f(heatColorLocation, this.color[0], this.color[1], this.color[2]);
 
         this.fillArray();
         let modelArrayLocation = graphics.shader.getUniformLocation("ModelInstance");
