@@ -13,6 +13,8 @@ let graphics: Graphics;
 let shader: Shader;
 let model: Model;
 let instancing: Instancing;
+let inst1: InstancedModel;
+let inst2: InstancedModel;
 
 function startGL() {
     let canvas:HTMLCanvasElement = document.getElementById("glCanvas") as HTMLCanvasElement;
@@ -30,20 +32,24 @@ function startGL() {
     model.getPosition()[0] = -3;
 
     instancing = new Instancing(mesh);
-    var inst = instancing.create();
-    inst.getPosition()[2] = 15.0;
-    inst.getPosition()[0] = 3.0;
 
-    inst = instancing.create();
-    inst.getPosition()[2] = 15.0;
-    inst.getPosition()[0] = 0;
+    inst1 = instancing.create();
+    inst1.getPosition()[2] = 15.0;
+    inst1.getPosition()[0] = 3.0;
+
+    inst2 = instancing.create();
+    inst2.getPosition()[2] = 15.0;
+    inst2.getPosition()[0] = 0;
 }
 
 function draw() {
     graphics.begin();
     
-    model.getRotation()[0] += 0.01;
+    model.getRotation()[0] += 0.02;
     model.draw(graphics);
+
+    inst1.getRotation()[1] += 0.02;
+    inst2.getRotation()[2] += 0.02;
 
     instancing.draw(graphics);
 
