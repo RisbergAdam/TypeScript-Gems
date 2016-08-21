@@ -8,8 +8,9 @@ in vec3 vPosition;
 in vec3 center;
 
 uniform vec3 heatColor;
+uniform int id;
 
-out vec4 fColor;
+layout(location=0) out vec4 fColor;
 
 float calcSpecular(vec3 ligth) {
     vec3 norm = normalize(vec3(vNormal));
@@ -17,8 +18,8 @@ float calcSpecular(vec3 ligth) {
     vec3 ligthReflected = reflect(ligth, norm);
 
     float diffuse = max(0.0, dot(norm, ligth));
-    float specular = min(1.0, pow(max(0.0, dot(ligthReflected, camera)), 100.0) * 0.08);
-    return specular + diffuse * 0.005;
+    float specular = min(1.0, pow(max(0.0, dot(ligthReflected, camera)), 100.0) * 0.1);
+    return specular + diffuse * 0.004;
 }
 
 void main(void) {
@@ -45,11 +46,12 @@ void main(void) {
     cameraToSurface = cameraToSurface * 0.5 + negNormal * 0.5;
 
     float heat2 = pow(max(0.0, dot(surfaceToCenter, cameraToSurface)) * 1.1, 5.0) + heat * 1.0;
+    //float heat2 = pow(max(0.0, dot(surfaceToCenter, cameraToSurface)) * 1.1, 5.0) * 0.5 + heat * 1.5;
 
     float specular = spec1 + spec2 + spec3 + spec4 + spec5 + spec6;
 
     //fColor = vec4(specular + heat2, specular + heat2 * 0.4, specular + heat2 * 0.1, 1.0);
-    fColor = vec4(specular + heat2 * heatColor.r, specular + heat2 * heatColor.g, specular + heat2 * heatColor.b, 1.0);
+    fColor = vec4(specular + heat2 * heatColor.r, specular + heat2 * heatColor.g, specular + heat2 * heatColor.b, float(id) / 255.0);
 }
 
 `

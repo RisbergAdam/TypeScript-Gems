@@ -2,6 +2,19 @@ import { CompiledMesh } from "./Mesh";
 import { Matrix } from "./Matrix";
 import { Graphics } from "./Graphics";
 
+let idGenerator = 0;
+let idMapping: { [key:number]:Model; } = {};
+
+function generateId(model: Model): number {
+    idGenerator++;
+    idMapping[idGenerator - 1] = model;
+    return idGenerator - 1;
+}
+
+function getModelById(id: number) {
+    return idMapping[id];
+}
+
 class Model {
 
     mesh: CompiledMesh;
@@ -12,10 +25,13 @@ class Model {
 
     matrix: Matrix = new Matrix();
 
+    id: number;
+
     constructor(mesh: CompiledMesh) {
         this.mesh = mesh;
         this.position = [0,0,0];
         this.rotation = [0,0,0];
+        this.id = generateId(this);
     }
 
     getPosition(): [number, number, number] {
@@ -33,6 +49,9 @@ class Model {
     draw(graphics: Graphics) {
         let isShaderLocation = graphics.shader.getUniformLocation("isInstance");
         graphics.gl.uniform1i(isShaderLocation, 0);
+
+        let idLocation = graphics.shader.getUniformLocation("id");
+        graphics.gl.uniform1i(idLocation, this.id);
 
         let heatColorLocation = graphics.shader.getUniformLocation("heatColor");
         graphics.gl.uniform3f(heatColorLocation, this.color[0], this.color[1], this.color[2]);
@@ -53,4 +72,4 @@ class Model {
 
 }
 
-export { Model };
+export { Model, getModelById };
