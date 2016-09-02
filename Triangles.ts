@@ -12,26 +12,15 @@ let graphics: Graphics;
 let shader: Shader;
 let canvas: HTMLCanvasElement;
 
-/*let getPixel: boolean;
-let x, y: number;
-
-function mouseClick(event: MouseEvent) {
-    mouseClic = true;
-}
-
-function mouseMove(event: MouseEvent) {
-    x = event.x - canvas.offsetLeft;
-    y = event.y - canvas.offsetTop;
-}*/
-
 function startGL() {
     canvas = document.getElementById("glCanvas") as HTMLCanvasElement;
-    console.log("startGL(): " + canvas);
+    let canvasStyle = window.getComputedStyle(canvas);
+    canvas.setAttribute("width", canvasStyle.width);
+    canvas.setAttribute("height", canvasStyle.height);
 
     gl = canvas.getContext("webgl") as WebGLRenderingContext;
     graphics = new Graphics(gl, canvas.width, canvas.height);
     graphics.init();
-    //loadScene(graphics, canvas.offsetLeft, canvas.offsetTop);
     loadScene(graphics);
 }
 

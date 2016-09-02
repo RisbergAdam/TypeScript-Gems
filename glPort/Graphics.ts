@@ -30,7 +30,7 @@ class Graphics {
 		this.screenShader = new Shader(screenVertSource, screenFragSource);
 
 		this.projectionView = new Matrix();
-		this.projectionView.perspective(Math.PI / 2.0 * 0.5, width/height, 0.1, 100.0);
+		this.projectionView.perspective(Math.PI / 2.0 * 0.2, width/height, 0.1, 100.0);
 		this.projectionView.rotate(3.14159, 1, 0, 0);
 	}
 
@@ -44,9 +44,15 @@ class Graphics {
     	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 		gl.viewport(0, 0, this.width, this.height);
 
+		console.log("screenSize: " + this.width + "," + this.height);
+
 		// initializer shaders
 		this.shader.compile(this.gl);
 		this.screenShader.compile(this.gl);
+		this.screenShader.use();
+		let screenSizeLocation = this.screenShader.getUniformLocation("screenSize");
+		gl.uniform2f(screenSizeLocation, this.width, this.height);
+
 		this.shader.use();
 
 		// create framebuffer

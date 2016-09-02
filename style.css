@@ -2,9 +2,44 @@ body {
 	background-color: #000
 }
 
-#glCanvas {
-	display: block;
-	margin: auto;
-	top: 100px;
-	position: relative
+@media all and (max-width: 1199px) {
+
+	#glCanvas {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: -400px;
+		margin-top: -100px;
+		width: 800px;
+		height: 200px;
+	}
+
+}
+
+@media all and (max-width: 1599px) {
+
+	#glCanvas {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: -600px;
+		margin-top: -150px;
+		width: 1200px;
+		height: 300px;
+	}
+
+}
+
+@media all and (min-width: 1600px) {
+
+	#glCanvas {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: -800px;
+		margin-top: -200px;
+		width: 1600px;
+		height: 400px;
+	}
+
 }

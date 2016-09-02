@@ -62,7 +62,7 @@ function loadScene(graphics: Graphics) {
     models = [m1, m2, m3, m4, m5];
     rotationSpeeds = [0.005, 0.005, 0.005, 0.005 ,0.005];
 
-    let depth = 10;
+    let depth = 12;
 
     m1.getPosition()[0] = -5;
     m1.getPosition()[2] = depth;
