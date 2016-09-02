@@ -1,2 +1,2 @@
 all:
-	tsc *.ts glPort/*.ts --module amd --outFile Triangles.js
+	tsc DisplayScene.ts InteractiveScene.ts Triangles.ts shaders/FragmentShader.ts shaders/ScreenShader.ts shaders/VertexShader.ts models/BluntSpikes.ts models/BrokenSphere.ts models/Scuplt.ts models/Shard.ts models/Sphere.ts models/Spikes.ts models/Teapot.ts models/Torus.ts glPort/Graphics.ts glPort/InstancedModel.ts glPort/Instancing.ts glPort/Matrix.ts glPort/Mesh.ts glPort/Model.ts glPort/Shader.ts --module amd --outFile Triangles.js
