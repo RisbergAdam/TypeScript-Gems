@@ -1,36 +1,37 @@
 import { Graphics } from "./glPort/Graphics";
 import { Shader } from "./glPort/Shader";
-//import { loadScene, drawScene } from "./DisplayScene";
-import { loadScene, drawScene } from "./DisplayScene";
+import { loadScene, drawScene} from "./DisplayScene";
+//import { loadScene, drawScene, mouseClick, mouseMove } from "./InteractiveScene";
 import { getModelById } from "./glPort/Model";
+
+let fps = 50;
+let frameTime = 1000/fps;
 
 let gl:WebGLRenderingContext;
 let graphics: Graphics;
 let shader: Shader;
 let canvas: HTMLCanvasElement;
 
-let getPixel: boolean;
+/*let getPixel: boolean;
 let x, y: number;
 
 function mouseClick(event: MouseEvent) {
-    x = event.x - canvas.offsetLeft;
-    y = event.y - canvas.offsetTop;
-    getPixel = true;
+    mouseClic = true;
 }
 
-function mouseMove(event: Event) {
-    //console.log("move!");
-}
+function mouseMove(event: MouseEvent) {
+    x = event.x - canvas.offsetLeft;
+    y = event.y - canvas.offsetTop;
+}*/
 
 function startGL() {
     canvas = document.getElementById("glCanvas") as HTMLCanvasElement;
-
-    canvas.onclick = mouseClick;
-    canvas.onmousemove = mouseMove;
+    console.log("startGL(): " + canvas);
 
     gl = canvas.getContext("webgl2") as WebGLRenderingContext;
     graphics = new Graphics(gl, canvas.width, canvas.height);
     graphics.init();
+    //loadScene(graphics, canvas.offsetLeft, canvas.offsetTop);
     loadScene(graphics);
 }
 
@@ -39,16 +40,14 @@ function draw() {
     drawScene(graphics);
     graphics.end();
 
-    if (getPixel) {
-        let pixelArray = new Uint8Array(4);
-        graphics.gl.readPixels(x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixelArray);
-        let id = pixelArray[3];
-        getModelById(id).getColor()[2] = 0.4;
-        getPixel = false;
-    }
+    setTimeout(draw, frameTime);
+}
 
-    setTimeout(draw, 20);
+function getCanvas(): HTMLCanvasElement {
+    return canvas;
 }
 
 startGL();
 draw();
+
+export { fps, frameTime, getCanvas };

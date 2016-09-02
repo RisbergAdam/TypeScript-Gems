@@ -7,8 +7,8 @@ let idMapping: { [key:number]:Model; } = {};
 
 function generateId(model: Model): number {
     idGenerator++;
-    idMapping[idGenerator - 1] = model;
-    return idGenerator - 1;
+    idMapping[idGenerator] = model;
+    return idGenerator;
 }
 
 function getModelById(id: number) {

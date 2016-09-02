@@ -19,7 +19,6 @@ class Graphics {
 
 	renderOutput: WebGLRenderbuffer;
 	outputTexture: WebGLTexture;
-	idTexture: WebGLTexture;
 
 	screenMesh: CompiledMesh;
 
@@ -88,6 +87,7 @@ class Graphics {
 		this.projectionView.upload(this.gl, "ProjectionView", this.shader);
 		this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, this.renderOutput);
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+		this.gl.bindTexture(this.gl.TEXTURE_2D, this.outputTexture);
 	}
 
 	end() {
@@ -95,7 +95,6 @@ class Graphics {
 		this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
 		this.gl.bindTexture(this.gl.TEXTURE_2D, this.outputTexture);
 		this.screenMesh.draw(this.gl);
-		this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, this.renderOutput);
 	}
 
 }

@@ -43,15 +43,17 @@ void main(void) {
     vec3 surfaceToCenter = normalize(center - vPosition);
     vec3 cameraToSurface = normalize(vPosition);
     vec3 negNormal = normalize(vec3(vNormal)) * -1.0;
-    cameraToSurface = cameraToSurface * 0.5 + negNormal * 0.5;
+    cameraToSurface = cameraToSurface * 0.8 + negNormal * 0.2;
 
-    float heat2 = pow(max(0.0, dot(surfaceToCenter, cameraToSurface)) * 1.1, 5.0) + heat * 1.0;
-    //float heat2 = pow(max(0.0, dot(surfaceToCenter, cameraToSurface)) * 1.1, 5.0) * 0.5 + heat * 1.5;
+    float heat2 = pow(max(0.0, dot(surfaceToCenter, cameraToSurface)) * 1.1, 6.0) + heat * 1.0;
 
     float specular = spec1 + spec2 + spec3 + spec4 + spec5 + spec6;
 
-    //fColor = vec4(specular + heat2, specular + heat2 * 0.4, specular + heat2 * 0.1, 1.0);
-    fColor = vec4(specular + heat2 * heatColor.r, specular + heat2 * heatColor.g, specular + heat2 * heatColor.b, float(id) / 255.0);
+    float colorDim = 0.15;
+    fColor = vec4(specular + heat2 * heatColor.r + heatColor.r * colorDim, 
+                  specular + heat2 * heatColor.g + heatColor.g * colorDim, 
+                  specular + heat2 * heatColor.b + heatColor.b * colorDim, 
+                  float(id) / 255.0);
 }
 
 `
