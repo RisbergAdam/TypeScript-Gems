@@ -62,33 +62,35 @@ function loadScene(graphics: Graphics) {
     models = [m1, m2, m3, m4, m5];
     rotationSpeeds = [0.005, 0.005, 0.005, 0.005 ,0.005];
 
+    let depth = 10;
+
     m1.getPosition()[0] = -5;
-    m1.getPosition()[2] = 15;
+    m1.getPosition()[2] = depth;
     m1.getColor()[0] = c1[0]*dim;
     m1.getColor()[1] = c1[1]*dim;
     m1.getColor()[2] = c1[2]*dim;
     //m1.getColor()[1] = 0.8;
 
     m2.getPosition()[0] = -2.5;
-    m2.getPosition()[2] = 15;
+    m2.getPosition()[2] = depth;
     m2.getColor()[0] = c2[0]*dim;
     m2.getColor()[1] = c2[1]*dim;
     m2.getColor()[2] = c2[2]*dim;
 
     m3.getPosition()[0] = 0;
-    m3.getPosition()[2] = 15;
+    m3.getPosition()[2] = depth;
     m3.getColor()[0] = c3[0]*dim;
     m3.getColor()[1] = c3[1]*dim;
     m3.getColor()[2] = c3[2]*dim;
 
     m4.getPosition()[0] = 2.5;
-    m4.getPosition()[2] = 15;
+    m4.getPosition()[2] = depth;
     m4.getColor()[0] = c4[0]*dim;
     m4.getColor()[1] = c4[1]*dim;
     m4.getColor()[2] = c4[2]*dim;
 
     m5.getPosition()[0] = 5.0;
-    m5.getPosition()[2] = 15;
+    m5.getPosition()[2] = depth;
     m5.getColor()[0] = c5[0]*dim;
     m5.getColor()[1] = c5[1]*dim;
     m5.getColor()[2] = c5[2]*dim;
