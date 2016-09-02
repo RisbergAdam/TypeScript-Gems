@@ -1,16 +1,14 @@
-let source = `#version 300 es
+let source = `
 
 precision mediump float;
 
-in vec4 vColor;
-in vec4 vNormal;
-in vec3 vPosition;
-in vec3 center;
+varying vec4 vColor;
+varying vec4 vNormal;
+varying vec3 vPosition;
+varying vec3 center;
 
 uniform vec3 heatColor;
 uniform int id;
-
-layout(location=0) out vec4 fColor;
 
 float calcSpecular(vec3 ligth) {
     vec3 norm = normalize(vec3(vNormal));
@@ -50,7 +48,7 @@ void main(void) {
     float specular = spec1 + spec2 + spec3 + spec4 + spec5 + spec6;
 
     float colorDim = 0.15;
-    fColor = vec4(specular + heat2 * heatColor.r + heatColor.r * colorDim, 
+    gl_FragColor = vec4(specular + heat2 * heatColor.r + heatColor.r * colorDim, 
                   specular + heat2 * heatColor.g + heatColor.g * colorDim, 
                   specular + heat2 * heatColor.b + heatColor.b * colorDim, 
                   float(id) / 255.0);

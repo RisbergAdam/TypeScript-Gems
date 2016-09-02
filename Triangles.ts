@@ -28,7 +28,7 @@ function startGL() {
     canvas = document.getElementById("glCanvas") as HTMLCanvasElement;
     console.log("startGL(): " + canvas);
 
-    gl = canvas.getContext("webgl2") as WebGLRenderingContext;
+    gl = canvas.getContext("webgl") as WebGLRenderingContext;
     graphics = new Graphics(gl, canvas.width, canvas.height);
     graphics.init();
     //loadScene(graphics, canvas.offsetLeft, canvas.offsetTop);
